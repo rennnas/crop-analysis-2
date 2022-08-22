@@ -1,0 +1,51 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+install.packages("writexl")
+
+```
+
+```{r}
+rm(list=ls())
+```
+
+```{r}
+library(dplyr)
+library(tidyverse)
+library(readxl)
+library(writexl)
+```
+
+```{r}
+
+invierno_2018_A <- read_excel("INV_2018_merged (1).xlsx", col_names = TRUE)
+invierno_2018_B <- read_excel("tabla_departamento_procesar_generada_invierno_2018 (1).xlsx", col_names = TRUE)
+```
+
+```{r}
+merged_1 <- invierno_2018_A %>%
+  left_join(invierno_2018_B, by = c("formulario" = "Formulario"))
+```
+
+```{r}
+merged_1 %>%
+  select(formulario, DEPARTAMENTO_2)
+  
+```
+
+```{r}
+
+invierno_2018_B$Formulario = as.numeric(as.character(invierno_2018_B$Formulario))
+
+```
+
+```{r}
+class(invierno_2018_B$Formulario)
+```
+```{r}
+write_xlsx(merged_1, "C:/Users/Airton/OneDrive/Documentos")
+```
+
